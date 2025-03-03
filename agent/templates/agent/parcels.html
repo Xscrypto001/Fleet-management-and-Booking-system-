@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garissa Coach - Drivers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-green-600 text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-bus text-2xl mr-2"></i>
+                        <span class="font-bold text-xl">Garissa Coach</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
+                        <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Trips</a>
+                        <a href="{% url 'Parcels' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Parcels</a>
+                        <a href="{% url 'vehicles' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Vehicles</a>
+                        <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium  hover:bg-green-700">Drivers</a>
+                        <a href="{% url 'reports' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Reports</a>
+                    
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <button id="openAddDriverModal" class="bg-white text-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            <i class="fas fa-plus mr-2"></i>Add Trip
+                        </button>
+                    </div>
+                    <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
+                        <button class="bg-green-600 p-1 rounded-full text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-800 focus:ring-white">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <div class="ml-3 relative">
+                            <div class="flex items-center">
+                                <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-user text-gray-600"></i>
+                                </div>
+                                <span class="ml-2">Admin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+<div class="container mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">Parcels Management</h1>
+        <p class="text-gray-600 mt-2">Add, track, and manage your deliveries</p>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+            <h2 class="text-xl font-semibold mb-4 md:mb-0">Find Parcels</h2>
+            <div class="w-full md:w-1/2">
+                <form method="get" action="{% url 'parcel_list' %}" class="flex">
+                    <input type="text" name="search" placeholder="Search by tracking number or description" 
+                           class="w-full border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           value="{{ request.GET.search }}">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select id="status-filter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_transit">In Transit</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="failed">Failed Delivery</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                <select id="sort-by" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="created_at">Date Created</option>
+                    <option value="delivery_date">Delivery Date</option>
+                    <option value="weight">Weight</option>
+                    <option value="amount">Amount</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                <select id="sort-order" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="desc">Descending</option>
+                    <option value="asc">Ascending</option>
+                </select>
+            </div>
+            <div class="flex items-end">
+                <button id="apply-filters" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition w-full">
+                    Apply Filters
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Parcel Form -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-6">Add New Parcel</h2>
+        <form id="parcel-form" method="post" action="{% url 'add_parcel' %}">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <label for="sender_name" class="block text-sm font-medium text-gray-700 mb-1">Sender Name</label>
+                    <input type="text" id="sender_name" name="sender_name" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="sender_phone" class="block text-sm font-medium text-gray-700 mb-1">Sender Phone</label>
+                    <input type="text" id="sender_phone" name="sender_phone" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="recipient_name" class="block text-sm font-medium text-gray-700 mb-1">Recipient Name</label>
+                    <input type="text" id="recipient_name" name="recipient_name" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="recipient_phone" class="block text-sm font-medium text-gray-700 mb-1">Recipient Phone</label>
+                    <input type="text" id="recipient_phone" name="recipient_phone" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <label for="pickup_location" class="block text-sm font-medium text-gray-700 mb-1">Pickup Location</label>
+                    <input type="text" id="pickup_location" name="pickup_location" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="delivery_location" class="block text-sm font-medium text-gray-700 mb-1">Delivery Location</label>
+                    <input type="text" id="delivery_location" name="delivery_location" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="bus" class="block text-sm font-medium text-gray-700 mb-1">Transport Bus</label>
+                    <select id="bus" name="bus" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Select Bus</option>
+                        {% for bus in buses %}
+                            <option value="{{ bus.id }}">{{ bus.name }} - {{ bus.route }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                    <input type="number" id="weight" name="weight" step="0.1" min="0.1" required
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                           onchange="calculateAmount()">
+                </div>
+                <div>
+                    <label for="parcel_type" class="block text-sm font-medium text-gray-700 mb-1">Parcel Type</label>
+                    <select id="parcel_type" name="parcel_type" required
+                            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onchange="calculateAmount()">
+                        <option value="standard">Standard Package</option>
+                        <option value="fragile">Fragile</option>
+                        <option value="perishable">Perishable</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="document">Document</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                    <input type="number" id="amount" name="amount" readonly
+                           class="w-full border border-gray-300 rounded-lg px-3 py-2 bg-gray-100">
+                </div>
+            </div>
+            
+            <div class="mb-6">
+                <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea id="description" name="description" rows="3" 
+                          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="text-lg font-bold" id="total-display">
+                    Total: Kes<span id="total-amount">0.00</span>
+                </div>
+                <div>
+                    <button type="button" id="pay-button" class="bg-green-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition">
+                        Proceed to Payment
+                    </button>
+                    <button type="submit" id="submit-button" class="hidden bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Save Parcel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Parcels List -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-6">Your Parcels</h2>
+        
+        {% if parcels %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Tracking #
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Sender/Recipient
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Route
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Details
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Status
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for parcel in parcels %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">{{ parcel.tracking_number }}</div>
+                                    <div class="text-sm text-gray-500">{{ parcel.created_at|date:"M d, Y" }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm font-medium text-gray-900">{{ parcel.sender_name }}</div>
+                                    <div class="text-sm text-gray-500">To: {{ parcel.recipient_name }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ parcel.pickup_location }}</div>
+                                    <div class="text-sm text-gray-500">To: {{ parcel.delivery_location }}</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-sm text-gray-900">{{ parcel.weight }}kg</div>
+                                    <div class="text-sm text-gray-500">Kes{{ parcel.amount }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                        {% if parcel.status == 'delivered' %}
+                                            bg-green-100 text-green-800
+                                        {% elif parcel.status == 'in_transit' %}
+                                            bg-blue-100 text-blue-800
+                                        {% elif parcel.status == 'pending' %}
+                                            bg-yellow-100 text-yellow-800
+                                        {% else %}
+                                            bg-red-100 text-red-800
+                                        {% endif %}">
+                                        {{ parcel.get_status_display }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <a href="{% url 'parcel_detail' parcel.id %}" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
+                                    {% if parcel.status == 'pending' %}
+                                        <a href="{% url 'edit_parcel' parcel.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                        <a href="{% url 'cancel_parcel' parcel.id %}" class="text-red-600 hover:text-red-900">Cancel</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="mt-6 flex justify-between items-center">
+                <p class="text-sm text-gray-700">
+                    Showing <span class="font-medium">{{ parcels.start_index }}</span> to 
+                    <span class="font-medium">{{ parcels.end_index }}</span> of 
+                    <span class="font-medium">{{ parcels.paginator.count }}</span> parcels
+                </p>
+                <div class="flex space-x-2">
+                    {% if parcels.has_previous %}
+                        <a href="?page={{ parcels.previous_page_number }}" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            Previous
+                        </a>
+                    {% endif %}
+                    
+                    {% for i in parcels.paginator.page_range %}
+                        {% if parcels.number == i %}
+                            <span class="px-3 py-1 bg-indigo-100 border border-indigo-500 rounded-md text-sm font-medium text-indigo-700">
+                                {{ i }}
+                            </span>
+                        {% elif i > parcels.number|add:"-3" and i < parcels.number|add:"3" %}
+                            <a href="?page={{ i }}" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                {{ i }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if parcels.has_next %}
+                        <a href="?page={{ parcels.next_page_number }}" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            Next
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-10">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-900">No parcels found</h3>
+                <p class="mt-1 text-sm text-gray-500">Get started by creating your first parcel delivery.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Paystack Integration -->
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+    // Calculate amount based on weight and parcel type
+    function calculateAmount() {
+        const weight = parseFloat(document.getElementById('weight').value) || 0;
+        const parcelType = document.getElementById('parcel_type').value;
+        
+        // Base rate per kg
+        let rate = 500;
+        
+        // Additional charges based on parcel type
+        const typeMultipliers = {
+            'standard': 1,
+            'fragile': 1.5,
+            'perishable': 1.3,
+            'electronics': 1.6,
+            'document': 0.8
+        };
+        
+        // Calculate amount
+        const amount = Math.ceil(weight * rate * typeMultipliers[parcelType]);
+        document.getElementById('amount').value = amount;
+        document.getElementById('total-amount').textContent = amount.toLocaleString();
+    }
+
+    // Paystack payment integration
+    document.getElementById('pay-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Form validation
+        const form = document.getElementById('parcel-form');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        const amount = parseFloat(document.getElementById('amount').value);
+        const email = "{{ request.user.email }}"; // Get user email from context
+        const senderName = document.getElementById('sender_name').value;
+        const recipientName = document.getElementById('recipient_name').value;
+        
+        // Initialize Paystack payment
+        const paymentHandler = PaystackPop.setup({
+            key: "{{ paystack_public_key }}", // From Django context
+            email: email,
+            amount: amount * 100, // Convert to kobo
+            ref: 'PCL'+Math.floor((Math.random() * 1000000000) + 1),
+            callback: function(response) {
+                // Payment was successful
+                // Add payment reference to a hidden input
+                const paymentRefInput = document.createElement('input');
+                paymentRefInput.type = 'hidden';
+                paymentRefInput.name = 'payment_reference';
+                paymentRefInput.value = response.reference;
+                form.appendChild(paymentRefInput);
+                
+                // Submit the form
+                document.getElementById('submit-button').click();
+            },
+            onClose: function() {
+                // User closed payment modal
+                alert('Payment window closed. Your parcel has not been created.');
+            }
+        });
+        
+        paymentHandler.openIframe();
+    });
+
+    // Filter application
+    document.getElementById('apply-filters').addEventListener('click', function() {
+        const status = document.getElementById('status-filter').value;
+        const sortBy = document.getElementById('sort-by').value;
+        const sortOrder = document.getElementById('sort-order').value;
+        const searchParams = new URLSearchParams(window.location.search);
+        
+        if (status) searchParams.set('status', status);
+        else searchParams.delete('status');
+        
+        if (sortBy) searchParams.set('sort_by', sortBy);
+        if (sortOrder) searchParams.set('sort_order', sortOrder);
+        
+        window.location.search = searchParams.toString();
+    });
+
+    // Initialize amount calculation on page load
+    document.addEventListener('DOMContentLoaded', calculateAmount);
+</script>
+</body>
+</html>

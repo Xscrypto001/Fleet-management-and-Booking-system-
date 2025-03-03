@@ -108,4 +108,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYSTACK_PUBLIC_KEY = 'pk_live_504e9f8c8aebfa975ff87ba801235867f91f39f9'
-AUTH_USER_MODEL = 'sales.CustomUser'
+AUTH_USER_MODEL = 'product.CustomUser'
