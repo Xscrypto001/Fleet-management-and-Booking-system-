@@ -45,18 +45,17 @@ class Driver(models.Model):
 
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=20, unique=True)
-    email = models.EmailField()
-    age = models.IntegerField()
-    license_number = models.CharField(max_length=20)
-    license_expiry = models.DateField()
-    experience = models.IntegerField()  # In years
-    status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default=ACTIVE)
-    address = models.TextField()
-    emergency_contact = models.CharField(max_length=20)
-    vehicle_preference = models.CharField(max_length=255)
+    email = models.EmailField(null=True)
+    age = models.IntegerField(null=True)
+    license_number = models.CharField(max_length=20, null=True)
+    license_expiry = models.DateField(null=True)
+    experience = models.IntegerField(null=True)  # In years
+    status = models.CharField( max_length=20, choices=STATUS_CHOICES, default=ACTIVE, null=True)
+    address = models.TextField(null=True)
+    emergency_contact = models.CharField(max_length=20, null=True)
+    vehicle_preference = models.CharField(max_length=255, null=True)
     photo = models.ImageField(upload_to='drivers/', null=True, blank=True)
-    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0)
+    rating = models.DecimalField(max_digits=3, decimal_places=2, default=0, null=True)
 
     def __str__(self):
         return self.name

@@ -14,9 +14,10 @@ from django.http import JsonResponse
 from .models import Parcel, Bus
 import uuid
 import json
-from django.contrib.auth.models import get_user_model 
-
+from django.contrib.auth import get_user_model
 User = get_user_model()
+
+
 @login_required
 def parcel_list(request):
     """View for displaying and filtering parcels"""
@@ -106,7 +107,7 @@ def login_view(request):
             password = request.POST['password']
 
             
-            user = authenticate(phone=username, password=password)
+            user = authenticate(username=username, password=password)
             
             if user is not None:
                 login(request, user)
@@ -126,7 +127,7 @@ def signup_view(request):
             username = request.POST['phone']
             password = request.POST['password']
 
-            user = User.objects.create_user(phone=username, password=password)
+            user = User.objects.create_user(username=username, password=password)
             login(request, user)
             messages.success(request, 'Account created successfully!')
             return redirect('dashboard')
