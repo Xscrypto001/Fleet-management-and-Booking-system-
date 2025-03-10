@@ -20,9 +20,9 @@
                     <span class="font-bold text-xl">Amran</span>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
-                    <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Trips</a>
-                    <a href="{% url 'Parcels' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
-                    <a href="{% url 'vehicles' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Vehicles</a>
+                    <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium hover.bg-green-700">Trips</a>
+                    <a href="{% url 'parcel_list' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
+                    <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Vehicles</a>
                     <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium  hover:bg-green-700">Drivers</a>
                 
              </div>
@@ -42,8 +42,8 @@
                             <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                                 <i class="fas fa-user text-gray-600"></i>
                             </div>
-                            <span class="ml-2">Admin</span>
-                        </div>
+                            <span class="ml-2"><a href={% url 'logout'%}>logout</span></a>
+                          </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,6 @@
       </button>
     </div>
   </header>
-
   <!-- Stats Cards -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -80,7 +79,7 @@
               <dl>
                 <dt class="text-sm font-medium text-black truncate">Total Vehicles</dt>
                 <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-black">48</div>
+                  <div class="text-2xl font-semibold text-black">{stat.total}</div>
                 </dd>
               </dl>
             </div>
@@ -100,7 +99,7 @@
               <dl>
                 <dt class="text-sm font-medium text-black truncate">Available</dt>
                 <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-black">36</div>
+                  <div class="text-2xl font-semibold text-black">{stat.active}</div>
                   <div class="ml-2 flex items-baseline text-sm font-semibold text-green-400">
                     <svg class="self-center flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -147,7 +146,7 @@
               <dl>
                 <dt class="text-sm font-medium text-black truncate">Issues Reported</dt>
                 <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-black">4</div>
+                  <div class="text-2xl font-semibold text-black">{stat.reported}</div>
                   <div class="ml-2 flex items-baseline text-sm font-semibold text-red-400">
                     <svg class="self-center flex-shrink-0 h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M14.707 10.293a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 12.586V5a1 1 0 012 0v7.586l2.293-2.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -161,6 +160,7 @@
           </div>
         </div>
       </div>
+    
     </div>
   </div>
 
@@ -211,41 +211,7 @@
             </tr>
           </thead>
           <tbody class="/20 divide-y divide-gray-700">
-            <tr class=" transition-colors">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10 bg-indigo-100 rounded-md flex items-center justify-center text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm font-medium text-black">Tesla Model 3</div>
-                    <div class="text-sm text-black">ID: VEH-2023-001</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">Sedan</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">ABC-1234</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Available</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-black">01/15/2025</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="w-20 bg-gray-600 rounded-full h-2.5">
-                  <div class="bg-green-500 h-2.5 rounded-full" style="width: 95%"></div>
-                </div>
-                <span class="text-xs text-black">95%</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" class="text-indigo-400 hover:text-indigo-300 mr-3">Edit</a>
-                <a href="#" class="text-indigo-400 hover:text-indigo-300">Details</a>
-              </td>
-            </tr>
+                  {% for cars in fleet %}
             <tr class=" transition-colors">
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
@@ -255,67 +221,33 @@
                     </svg>
                   </div>
                   <div class="ml-4">
-                    <div class="text-sm font-medium text-black">Ford F-150</div>
-                    <div class="text-sm text-black">ID: VEH-2023-002</div>
+                    <div class="text-sm font-medium text-black">{{cars.driver}}</div>
+                    <div class="text-sm text-black">{{cars.bus_number}}</div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">Truck</div>
+                <div class="text-sm text-black">Bus</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">XYZ-5678</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Maintenance</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-black">02/25/2025</td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="w-20 bg-gray-600 rounded-full h-2.5">
-                  <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 45%"></div>
-                </div>
-                <span class="text-xs text-black">45%</span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="#" class="text-indigo-400 hover:text-indigo-300 mr-3">Edit</a>
-                <a href="#" class="text-indigo-400 hover:text-indigo-300">Details</a>
-              </td>
-            </tr>
-            <tr class=" transition-colors">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 h-10 w-10 bg-indigo-100 rounded-md flex items-center justify-center text-indigo-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div class="ml-4">
-                    <div class="text-sm font-medium text-black">Toyota RAV4</div>
-                    <div class="text-sm text-black">ID: VEH-2023-003</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">SUV</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-black">DEF-9012</div>
+                <div class="text-sm text-black">{{cars.license}}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">In Use</span>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-black">01/30/2025</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-black">{{cars.last_service}}</td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="w-20 bg-gray-600 rounded-full h-2.5">
-                  <div class="bg-red-500 h-2.5 rounded-full" style="width: 15%"></div>
+                  <div class="bg-info h-2.5 rounded-full" style="width: 100%"></div>
                 </div>
-                <span class="text-xs text-black">15%</span>
+                <span class="text-xs text-black">Unknown</span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 <a href="#" class="text-indigo-400 hover:text-indigo-300 mr-3">Edit</a>
                 <a href="#" class="text-indigo-400 hover:text-indigo-300">Details</a>
               </td>
             </tr>
+            {%  endfor %}
           </tbody>
         </table>
       </div>
@@ -360,7 +292,7 @@
 </div>
 
 <!-- Modal for adding a new vehicle -->
-<div id="add-vehicle-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto h-full w-full z-50">
+<div id="add-vehicle-modal" class="hidden fixed inset-0 bg-white bg-opacity-75 overflow-y-auto h-full w-full z-50">
 <div class="relative top-20 mx-auto p-5 border w-full max-w-lg rounded-md shadow-lg  border-gray-700">
 <div class="flex justify-between items-center pb-3 border-b border-gray-700">
 <h3 class="text-xl font-medium text-black">Add New Vehicle</h3>

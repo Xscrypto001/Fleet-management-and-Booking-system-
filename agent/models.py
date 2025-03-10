@@ -62,9 +62,12 @@ class Driver(models.Model):
 
 
 class Bus(models.Model):
-    is_active = models.BooleanField(default=True)
-    bus_number = models.CharField(max_length=20)
+    is_active = models.BooleanField(default=True,null=True)
+    bus_number = models.CharField(max_length=20,null=True)
+    license = models.CharField(max_length=20,null=True)
+    on_maintainance = models.BooleanField(default=False,null=True) 
+    reported = models.BooleanField(default=False,null=True) 
     driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True)
-    
+    last_service = models.DateTimeField(null=True)
     def __str__(self):
         return self.bus_number

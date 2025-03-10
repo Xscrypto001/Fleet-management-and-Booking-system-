@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Driver
+from .models import Driver, Bus
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -21,7 +21,7 @@ User = get_user_model()
 @login_required
 def parcel_list(request):
     """View for displaying and filtering parcels"""
-    queryset = Parcel.objects.filter(user=request.user)
+    queryset = Parcel.objects.all()
     
     # Search functionality
     search_query = request.GET.get('search')
@@ -55,17 +55,16 @@ def parcel_list(request):
     paginator = Paginator(queryset, 10)  # 10 parcels per page
     page_number = request.GET.get('page', 1)
     parcels = paginator.get_page(page_number)
-    
     # Get available buses for the form
     buses = Bus.objects.filter(is_active=True)
     
     context = {
         'parcels': parcels,
         'buses': buses,
-        'paystack_public_key': 'pk_test_your_paystack_public_key_here',  # Replace with your actual key
+        'paystack_public_key': 'pk_live_504e9f8c8aebfa975ff87ba801235867f91f39f9',  # Replace with your actual key
     }
     
-    return render(request, 'parcels.html', context)
+    return render(request, 'agent/parcels.html', context)
 
 @login_required
 def add_parcel(request):
@@ -111,7 +110,7 @@ def login_view(request):
             
             if user is not None:
                 login(request, user)
-                next_url = request.GET.get('next', 'dashboard')
+                next_url = request.GET.get('next', 'Trips')
                 return redirect(next_url)
             else:
                 messages.error(request, 'Invalid username or password')
@@ -130,7 +129,7 @@ def signup_view(request):
             user = User.objects.create_user(username=username, password=password)
             login(request, user)
             messages.success(request, 'Account created successfully!')
-            return redirect('dashboard')
+            return redirect('parcel_list')
 
     
     return render(request, 'agent/register.html')
@@ -191,3 +190,20 @@ def add_driver(request):
         return redirect('drivers')
     
     return redirect('drivers')
+
+
+
+
+def Vehicles(request):
+    fleet = Bus.objects.all()
+    stats = {
+        
+        'total': Bus.objects.all().count(),
+        'acive': Bus.objects.filter(is_active=True).count(),
+         'on_maintainance': Bus.objects.filter(on_maintainance=True).count(),
+          'reported': Bus.objects.filter(reported=True).count(),
+    }
+    return render(request, 'agent/fleet_management.html', {'fleet': fleet, ' stats': stats})
+
+def Trips(request):
+    return render(request, 'agent/tickets.html')

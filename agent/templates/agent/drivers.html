@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garissa Coach - Drivers</title>
+    <title>Amran - Drivers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
@@ -17,11 +17,11 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <i class="fas fa-bus text-2xl mr-2"></i>
-                        <span class="font-bold text-xl">Garissa Coach</span>
+                        <span class="font-bold text-xl">Amran</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
                         <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Trips</a>
-                        <a href="{% url 'Parcels' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
+                        <a href="{% url 'parcel_list' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
                         <a href="{% url 'vehicles' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Vehicles</a>
                         <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Drivers</a>
                     </div>
@@ -41,7 +41,7 @@
                                 <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                                     <i class="fas fa-user text-gray-600"></i>
                                 </div>
-                                <span class="ml-2">Admin</span>
+                                <span class="ml-2"><a href={% url 'logout'%}>logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,14 @@
         <div class="px-4 sm:px-0 mb-6">
             <h1 class="text-2xl font-semibold text-gray-900">Drivers Management</h1>
             <p class="mt-1 text-sm text-gray-600">Manage your driver roster, view details and add new drivers.</p>
+
+
+
         </div>
+        <button id="add-vehicle-btn" class="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Add New Driver
+          </button>
+    </div>
 
         <!-- Search and Filter Bar -->
         <div class="mb-6 px-4 sm:px-0">

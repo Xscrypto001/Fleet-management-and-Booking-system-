@@ -21,7 +21,7 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
                         <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Trips</a>
-                        <a href="{% url 'Parcels' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
+                        <a href="{% url 'parcel_list' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Parcels</a>
                         <a href="{% url 'vehicles' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Vehicles</a>
                         <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Drivers</a>
                     </div>
@@ -41,7 +41,7 @@
                                 <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                                     <i class="fas fa-user text-gray-600"></i>
                                 </div>
-                                <span class="ml-2">Admin</span>
+                                <span class="ml-2"><a href={% url 'logout'%}>logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -56,6 +56,12 @@
         <!-- Main Content -->
         <main class="container mx-auto px-6 py-8">
           <!-- Dashboard Title -->
+
+
+
+     
+
+
           <div class="flex justify-between items-center mb-8">
             <h2 class="text-3xl font-bold text-gray-800">Trip Management Dashboard</h2>
             <div class="flex space-x-3">
@@ -71,11 +77,9 @@
                 </svg>
               </div>
               <div class="relative">
-                <select id="statusFilter" class="pl-4 pr-10 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 appearance-none">
-                  <option value="">All Status</option>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
-                </select>
+                <button id="add-vehicle-btn" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Add New Vehicle
+                </button>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 absolute right-3 top-2.5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -403,23 +407,87 @@
         </div>
       </main>
     </div>  
- 
+    <div id="add-vehicle-modal" class="hidden fixed inset-0 bg-white bg-opacity-75 overflow-y-auto h-full w-full z-50">
+      <div class="relative top-20 mx-auto p-5 border w-full max-w-lg rounded-md shadow-lg  border-gray-700">
+      <div class="flex justify-between items-center pb-3 border-b border-gray-700">
+      <h3 class="text-xl font-medium text-black">Add New Vehicle</h3>
+      <button id="close-modal" class="text-black hover:text-gray-200">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+      </button>
+      </div>
+      <div class="mt-4">
+      <form>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <label for="vehicle-name" class="block text-sm font-medium text-black">Vehicle Name</label>
+          <input type="text" id="vehicle-name" class="mt-1 block w-full rounded-md border-gray-600 bg-white text-black shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="vehicle-type" class="block text-sm font-medium text-black">Type</label>
+          <select id="vehicle-type" class="mt-1 block w-full rounded-md border-gray-600 bg-white text-black shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+            <option>Sedan</option>
+            <option>SUV</option>
+            <option>Truck</option>
+            <option>Van</option>
+          </select>
+        </div>
+        <div>
+          <label for="license-plate" class="block text-sm font-medium text-black">License Plate</label>
+          <input type="text" id="license-plate" class="mt-1 block w-full rounded-md border-gray-600 bg-white text-black shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+        </div>
+        <div>
+          <label for="vehicle-status" class="block text-sm font-medium text-black">Status</label>
+          <select id="vehicle-status" class="mt-1 block w-full rounded-md border-gray-600 bg-white text-black shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50">
+            <option>Available</option>
+            <option>In Use</option>
+            <option>Maintenance</option>
+            <option>Out of Service</option>
+          </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="vehicle-notes" class="block text-sm font-medium text-black">Additional Notes</label>
+          <textarea id="vehicle-notes" rows="3" class="mt-1 block w-full rounded-md border-gray-600 bg-white text-black shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"></textarea>
+        </div>
+      </div>
+      <div class="mt-5 flex justify-end space-x-3">
+        <button type="button" id="cancel-btn" class="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50">
+          Cancel
+        </button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 text-black rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+          Add Vehicle
+        </button>
+      </div>
+      </form>
+      </div>
+      </div>
+      </div>
+      
+      <!-- Simple JavaScript to handle modal -->
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      const addVehicleBtn = document.getElementById('add-vehicle-btn');
+      const modal = document.getElementById('add-vehicle-modal');
+      const closeModal = document.getElementById('close-modal');
+      const cancelBtn = document.getElementById('cancel-btn');
+      
+      addVehicleBtn.addEventListener('click', function() {
+      modal.classList.remove('hidden');
+      });
+      
+      closeModal.addEventListener('click', function() {
+      modal.classList.add('hidden');
+      });
+      
+      cancelBtn.addEventListener('click', function() {
+      modal.classList.add('hidden');
+      });
+      });
+      </script>
 
                         </body>
 </html>
-
-
-
-
-
-
-ignoring the sidebarand to bar use django and html taileind dont user react please make a beautiful fancy and outstanding ui 
-for the fleet maangement age where there is vehicles and also make it look stunning and aperson can add a vehicle with detailsa nd makeit make sense this.value.toLowerCase
-make it look outsatnsdig and detailed and functional please 
-
-
-
-
 
 
 

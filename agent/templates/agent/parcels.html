@@ -21,7 +21,7 @@
                     </div>
                     <div class="hidden sm:ml-6 sm:flex sm:items-center space-x-4">
                         <a href="{% url 'Trips' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Trips</a>
-                        <a href="{% url 'Parcels' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Parcels</a>
+                        <a href="{% url 'parcel_list' %}" class="px-3 py-2 rounded-md text-sm font-medium bg-green-700">Parcels</a>
                         <a href="{% url 'vehicles' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-green-700">Vehicles</a>
                         <a href="{% url 'drivers' %}" class="px-3 py-2 rounded-md text-sm font-medium  hover:bg-green-700">Drivers</a>
                     
@@ -42,7 +42,7 @@
                                 <div class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                                     <i class="fas fa-user text-gray-600"></i>
                                 </div>
-                                <span class="ml-2">Admin</span>
+                                <span class="ml-2"><a href={% url 'logout'%}>logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -79,14 +79,9 @@
         
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                <select id="status-filter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">All Statuses</option>
-                    <option value="pending">Pending</option>
-                    <option value="in_transit">In Transit</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="failed">Failed Delivery</option>
-                </select>
+                 <button id="openAddDriverModal" class="bg-white text-green-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            <i class="fas fa-plus mr-2"></i>Add Driver
+                        </button>
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
@@ -158,7 +153,7 @@
                             class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                         <option value="">Select Bus</option>
                         {% for bus in buses %}
-                            <option value="{{ bus.id }}">{{ bus.name }} - {{ bus.route }}</option>
+                            <option value="{{ bus.id }}">{{ bus.bus_number}} - {{ bus.route }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -277,8 +272,8 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{% url 'parcel_detail' parcel.id %}" class="text-indigo-600 hover:text-indigo-900 mr-3">View</a>
                                     {% if parcel.status == 'pending' %}
-                                        <a href="{% url 'edit_parcel' parcel.id %}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
-                                        <a href="{% url 'cancel_parcel' parcel.id %}" class="text-red-600 hover:text-red-900">Cancel</a>
+                                        <a href="#" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                                        <a href="#" class="text-red-600 hover:text-red-900">Cancel</a>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -341,7 +336,7 @@
         const parcelType = document.getElementById('parcel_type').value;
         
         // Base rate per kg
-        let rate = 500;
+        let rate = 10;
         
         // Additional charges based on parcel type
         const typeMultipliers = {
