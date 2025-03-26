@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Alert,
+  Alert,ActivityIndicator,
 } from 'react-native';
 import {
   HStack,
@@ -14,19 +14,19 @@ import {
   Box,
   Heading,
   Button,
-  Card,
   Icon,
   Divider,
   Badge,
+  Spinner,
   useToast,
-} from '@haystack/react-native';
+} from 'native-base';
+import { ActivityIndicator } from 'react-native-paper';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import PDFLib, { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import Share from 'react-native-share';
 import * as FileSystem from 'expo-file-system';
-
 const CarDetailScreen = ({ route, navigation }) => {
-  const { car } = route.params || {
+ /* const { car } = route.params || {
     car: {
       id: '1',
       name: 'Express Deluxe',
@@ -44,8 +44,26 @@ const CarDetailScreen = ({ route, navigation }) => {
       totalSeats: 30,
       availableSeats: 18,
     }
-  };
+  };*/
+  const [car, setCar] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/car/${carId}/`)
+      .then(response => response.json())
+      .then(data => {
+        setCar(data.car);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching car details:", error);
+        setLoading(false);
+      });
+  }, [carId]);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#1abc9c" style={styles.loader} />;
+  }
   const [selectedSeats, setSelectedSeats] = useState([]);
   const toast = useToast();
 

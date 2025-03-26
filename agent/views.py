@@ -16,7 +16,60 @@ import uuid
 import json
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from .models import Booking
 
+
+from django.shortcuts import get_object_or_404
+from .models import Vehicle
+
+from django.http import JsonResponse
+from .models import Route
+
+def bus_routes_view(request):
+    routes = Route.objects.select_related('driver').all()
+    
+    data = [
+        {
+            "id": str(route.id),
+            "route": route.route_name,
+            "time": route.time.strftime("%I:%M %p"),
+            "driver": route.driver.name if route.driver else "Unassigned",
+            "seats": route.available_seats,
+            "price": f"${route.price:.2f}",
+        }
+        for route in routes
+    ]
+    
+    return JsonResponse(data, safe=False)
+
+
+def bookings_view(request):
+    bookings = Booking.objects.select_related('vehicle').all()
+    
+    data = [
+        {
+            "id": f"book-{booking.id}",
+            "car": {
+                "id": str(booking.vehicle.id),
+                "name": booking.vehicle.name,
+                "type": booking.vehicle.vehicle_type,
+                "image": booking.vehicle.image,
+                "departureTime": booking.vehicle.departure_time.strftime("%I:%M %p"),
+                "arrivalTime": booking.vehicle.arrival_time.strftime("%I:%M %p"),
+                "duration": booking.vehicle.duration,
+                "from": booking.vehicle.departure_city,
+                "to": booking.vehicle.arrival_city,
+            },
+            "bookingDate": booking.booking_date.strftime("%d %b %Y"),
+            "travelDate": booking.travel_date.strftime("%d %b %Y"),
+            "seats": booking.seats,
+            "totalAmount": float(booking.total_amount),
+            "status": booking.status,
+        }
+        for booking in bookings
+    ]
+    
+    return JsonResponse(data, safe=False)
 
 @login_required
 def parcel_list(request):
@@ -66,29 +119,57 @@ def parcel_list(request):
     
     return render(request, 'agent/parcels.html', context)
 
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import Parcel, Bus
+import uuid
+
 @login_required
 def add_parcel(request):
-    """View for adding a new parcel"""
     if request.method == 'POST':
-        form = ParcelForm(request.POST)
-        if form.is_valid():
-            parcel = form.save(commit=False)
-            parcel.user = request.user
-            
-            # Generate tracking number
-            parcel.tracking_number = f"TRK{uuid.uuid4().hex[:8].upper()}"
-            
-            # Get payment reference if payment was made
-            payment_ref = request.POST.get('payment_reference')
-            if payment_ref:
-                parcel.payment_reference = payment_ref
-                parcel.payment_status = 'paid'
-            
-            parcel.save()
-            messages.success(request, f'Parcel with tracking number {parcel.tracking_number} created successfully.')
-            return redirect('parcel_list')
-        else:
-            messages.error(request, 'There was an error with your submission. Please check the form.')
+        sender_name = request.POST.get('sender_name')
+        sender_phone = request.POST.get('sender_phone')
+        recipient_name = request.POST.get('recipient_name')
+        recipient_phone = request.POST.get('recipient_phone')
+        pickup_location = request.POST.get('pickup_location')
+        delivery_location = request.POST.get('delivery_location')
+        bus_id = request.POST.get('bus')
+        weight = request.POST.get('weight')
+        parcel_type = request.POST.get('parcel_type')
+        amount = request.POST.get('amount')
+        description = request.POST.get('description')
+        payment_ref = request.POST.get('payment_reference')
+
+        try:
+            bus = Bus.objects.get(id=bus_id)
+        except Bus.DoesNotExist:
+            messages.error(request, "Invalid bus selection.")
+            return redirect('add_parcel')
+
+        parcel = Parcel(
+            user=request.user,
+            sender_name=sender_name,
+            sender_phone=sender_phone,
+            recipient_name=recipient_name,
+            recipient_phone=recipient_phone,
+            pickup_location=pickup_location,
+            delivery_location=delivery_location,
+            bus=bus,
+            weight=weight,
+            parcel_type=parcel_type,
+            amount=amount,
+            description=description,
+            tracking_number=f"TRK{uuid.uuid4().hex[:8].upper()}"
+        )
+
+        if payment_ref:
+            parcel.payment_reference = payment_ref
+            parcel.payment_status = 'paid'
+        
+        parcel.save()
+        messages.success(request, f'Parcel with tracking number {parcel.tracking_number} created successfully.')
+        return redirect('parcel_list')
     
     return redirect('parcel_list')
 
@@ -207,3 +288,30 @@ def Vehicles(request):
 
 def Trips(request):
     return render(request, 'agent/tickets.html')
+
+
+
+def car_details_view(request, car_id):
+    vehicle = get_object_or_404(Vehicle, id=car_id)
+
+    data = {
+        "car": {
+            "id": str(vehicle.id),
+            "name": vehicle.name,
+            "type": vehicle.vehicle_type,
+            "image": vehicle.image,
+            "rating": vehicle.rating,
+            "departureTime": vehicle.departure_time.strftime("%I:%M %p"),
+            "arrivalTime": vehicle.arrival_time.strftime("%I:%M %p"),
+            "duration": vehicle.duration,
+            "from": vehicle.departure_city,
+            "to": vehicle.arrival_city,
+            "date": vehicle.date.strftime("%d %b %Y"),
+            "price": float(vehicle.price),
+            "amenities": vehicle.amenities,
+            "totalSeats": vehicle.total_seats,
+            "availableSeats": vehicle.available_seats,
+        }
+    }
+
+    return JsonResponse(data)

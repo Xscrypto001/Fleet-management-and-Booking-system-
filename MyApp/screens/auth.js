@@ -16,7 +16,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
-
 // Login Screen Component
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -339,7 +338,7 @@ const styles = StyleSheet.create({
 });
 
 // Navigation setup (basic example)
-const App = () => {
+const Nav= () => {
   // In a real app, you'd use React Navigation
   const [currentScreen, setCurrentScreen] = useState('Login');
   
@@ -358,4 +357,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Nav;

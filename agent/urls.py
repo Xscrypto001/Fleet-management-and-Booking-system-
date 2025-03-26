@@ -13,5 +13,9 @@ urlpatterns = [
     path('drivers/', views.drivers_view, name='drivers'),
     path('drivers/add/', views.add_driver, name='add_driver'),
     path('', views.Trips, name='Trips'),
-    path('vehicles/', views.Vehicles, name='vehicles')
+    path('vehicles/', views.Vehicles, name='vehicles'),
+      path("bookings/", views.bookings_view, name="bookings"),
+    path("routes/", views.bus_routes_view, name="bus_routes"),
+
+    path("car/<int:car_id>/", views.car_details_view, name="car_details"),
 ]

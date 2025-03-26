@@ -13,14 +13,14 @@ import {
   Box,
   Heading,
   Button,
-  Card,
   Icon,
   Divider,
   Badge,
   Spinner,
-  Empty,
   useToast,
-} from '@haystack/react-native';
+} from 'native-base';
+import { ActivityIndicator } from 'react-native-paper';
+
 import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import PDFLib from 'react-native-pdf-lib';
 import Share from 'react-native-share';
@@ -130,15 +130,27 @@ const BookingHistoryScreen = ({ navigation }) => {
       status: 'canceled',
     },
   ];
-
+/*
   useEffect(() => {
     // Simulate API call to fetch bookings
     setTimeout(() => {
       setBookings(mockBookings);
       setLoading(false);
     }, 1500);
-  }, []);
+  }, []);  */
 
+   useEffect(() => {
+    fetch('http://127.0.0.1:8000/booking/')  
+      .then(response => response.json())
+      .then(data => {
+        setBookings(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching bookings:', error);
+        setLoading(false);
+      });
+  }, []);
   const filteredBookings = () => {
     if (filter === 'all') return bookings;
     return bookings.filter(booking => booking.status === filter);

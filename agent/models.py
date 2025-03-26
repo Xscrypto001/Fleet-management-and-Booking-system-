@@ -71,3 +71,52 @@ class Bus(models.Model):
     last_service = models.DateTimeField(null=True)
     def __str__(self):
         return self.bus_number
+
+class Route(models.Model):
+    bus = models.ForeignKey('Bus', on_delete=models.CASCADE, related_name="routes")
+    driver = models.ForeignKey('Driver', on_delete=models.SET_NULL, null=True, related_name="routes")
+    route_name = models.CharField(max_length=255)
+    time = models.TimeField()
+    available_seats = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.route_name} - {self.time.strftime('%I:%M %p')}"
+
+
+
+
+from django.db import models
+
+from django.db import models
+
+class Vehicle(models.Model):
+    name = models.CharField(max_length=255)
+    vehicle_type = models.CharField(max_length=100)
+    image = models.URLField()
+    rating = models.FloatField()
+    departure_time = models.TimeField()
+    arrival_time = models.TimeField()
+    duration = models.CharField(max_length=50)
+    departure_city = models.CharField(max_length=100)
+    arrival_city = models.CharField(max_length=100)
+    date = models.DateField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    amenities = models.JSONField()  # List of amenities
+    total_seats = models.IntegerField()
+    available_seats = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+
+class Booking(models.Model):
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="bookings")
+    booking_date = models.DateField()
+    travel_date = models.DateField()
+    seats = models.JSONField()  # Stores an array of seat numbers
+    total_amount = models.DecimalField(max_digits=7, decimal_places=2)
+    status = models.CharField(max_length=20, choices=[("upcoming", "Upcoming"), ("completed", "Completed"), ("canceled", "Canceled")])
+
+    def __str__(self):
+        return f"Booking {self.id} - {self.vehicle.name}"

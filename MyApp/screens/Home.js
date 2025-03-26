@@ -1,19 +1,43 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList, Image, SafeAreaView, StatusBar } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList, Image, SafeAreaView, StatusBar } from 'react-native';
+
 import MapView, { Marker } from 'react-native-maps';
 import { Ionicons, MaterialIcons, FontAwesome5 } from '@expo/vector-icons';
-
 const HomeScreen = () => {
   const [activeTab, setActiveTab] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [availableBuses, setAvailableBuses] = useState([]);
+  const [loading, setLoading] = useState(true);
+/*
   const [availableBuses, setAvailableBuses] = useState([
     { id: '1', route: 'Downtown - Suburbs', time: '10:30 AM', driver: 'John Smith', seats: 14, price: '$5.50' },
     { id: '2', route: 'Airport Express', time: '11:45 AM', driver: 'Sarah Johnson', seats: 8, price: '$12.00' },
     { id: '3', route: 'Central Station - Mall', time: '12:15 PM', driver: 'Mike Chen', seats: 22, price: '$4.25' },
     { id: '4', route: 'University - Downtown', time: '1:30 PM', driver: 'Emma Davis', seats: 5, price: '$3.75' },
     { id: '5', route: 'Beach Route', time: '2:45 PM', driver: 'Robert Wilson', seats: 17, price: '$6.00' },
-  ]);
+  ]); */
+  useEffect(() => {
+    const fetchBuses = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/routes/');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setAvailableBuses(data);
+      } catch (error) {
+        console.error('Error fetching buses:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchBuses();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="blue" />;
+  }
   const filteredBuses = availableBuses.filter(
     bus => bus.route.toLowerCase().includes(searchQuery.toLowerCase()) || 
            bus.driver.toLowerCase().includes(searchQuery.toLowerCase())
