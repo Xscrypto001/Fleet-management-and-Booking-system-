@@ -328,6 +328,8 @@
 </div>
 
 <!-- Paystack Integration -->
+
+
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>
     // Calculate amount based on weight and parcel type
@@ -365,7 +367,7 @@
         }
         
         const amount = parseFloat(document.getElementById('amount').value);
-        const email = "{{ request.user.email }}"; // Get user email from context
+        const email = "nehemiahkibungei@gmail.com"; // Get user email from context
         const senderName = document.getElementById('sender_name').value;
         const recipientName = document.getElementById('recipient_name').value;
         
@@ -373,6 +375,7 @@
         const paymentHandler = PaystackPop.setup({
             key: "{{ paystack_public_key }}", // From Django context
             email: email,
+            currency: "Kes",
             amount: amount * 100, // Convert to kobo
             ref: 'PCL'+Math.floor((Math.random() * 1000000000) + 1),
             callback: function(response) {

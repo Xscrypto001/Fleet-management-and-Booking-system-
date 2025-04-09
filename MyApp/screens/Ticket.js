@@ -20,7 +20,6 @@ import {
   Spinner,
   useToast,
 } from 'native-base';
-import { ActivityIndicator } from 'react-native-paper';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import PDFLib, { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import Share from 'react-native-share';

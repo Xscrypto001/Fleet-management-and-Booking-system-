@@ -315,3 +315,26 @@ def car_details_view(request, car_id):
     }
 
     return JsonResponse(data)
+
+
+
+
+
+def bookings_view(request, book_id):
+    vehicle = Booking.objects.all()
+
+
+
+    data = {
+        "vehicle": {
+            "vehicle": vehicle,
+     
+    
+        }
+    }
+
+    return JsonResponse(data)
+
+
+
+
