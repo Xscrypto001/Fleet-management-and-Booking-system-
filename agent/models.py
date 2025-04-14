@@ -110,13 +110,35 @@ class Vehicle(models.Model):
         return self.name
 
 
-class Booking(models.Model):
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="bookings")
-    booking_date = models.DateField()
-    travel_date = models.DateField()
-    seats = models.JSONField()  # Stores an array of seat numbers
-    total_amount = models.DecimalField(max_digits=7, decimal_places=2)
-    status = models.CharField(max_length=20, choices=[("upcoming", "Upcoming"), ("completed", "Completed"), ("canceled", "Canceled")])
 
+class Booking(models.Model):
+    BOOKING_TYPES = [
+        ('Flight', 'Flight'),
+        ('Train', 'Train'),
+        ('Bus', 'Bus'),
+        ('Hotel', 'Hotel'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    type = models.CharField(max_length=20, choices=BOOKING_TYPES)
+    origin = models.CharField(max_length=100, blank=True, null=True)
+    destination = models.CharField(max_length=100, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    departure_date = models.DateField(blank=True, null=True)
+    departure_time = models.CharField(max_length=20, blank=True, null=True)
+    arrival_time = models.CharField(max_length=20, blank=True, null=True)
+    check_in = models.DateField(blank=True, null=True)
+    check_out = models.DateField(blank=True, null=True)
+    status = models.CharField(max_length=20)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    airline = models.CharField(max_length=100, blank=True, null=True)
+    flight_number = models.CharField(max_length=50, blank=True, null=True)
+    train_number = models.CharField(max_length=50, blank=True, null=True)
+    bus_number = models.CharField(max_length=50, blank=True, null=True)
+    hotel = models.CharField(max_length=100, blank=True, null=True)
+    room_type = models.CharField(max_length=100, blank=True, null=True)
+    booking_date = models.DateField()
+    thumbnail = models.URLField(default="/api/placeholder/80/80")
+    
     def __str__(self):
-        return f"Booking {self.id} - {self.vehicle.name}"
+        return f"{self.type} booking - {self.id}"

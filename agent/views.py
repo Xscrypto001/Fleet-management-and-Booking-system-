@@ -334,7 +334,140 @@ def bookings_view(request, book_id):
     }
 
     return JsonResponse(data)
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+
+class UsernamesStringView(APIView):
+    permission_classes = [IsAuthenticated]  
+
+    def get(self, request):
+        usernames = [user.username for user in User.objects.all()]
+        usernames_str = ", ".join(usernames)
+        return Response(usernames_str)
+
+class AvailableRoutesView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        routes = Route.objects.all()
+        data = [
+            {
+                "id": route.id,
+                "name": route.route_name,
+                "time": route.time.strftime("%I:%M %p"),
+                "seats": route.available_seats,
+                "price": f"${route.price:.2f}"
+            }
+            for route in routes
+        ]
+        return Response(data)
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import Booking
+
+class BookingListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        bookings = Booking.objects.filter(user=request.user).order_by('-booking_date')
+        data = []
+
+        for b in bookings:
+            booking = {
+                "id": f"B{b.id:03d}",
+                "type": b.type,
+                "status": b.status,
+                "price": float(b.price),
+                "bookingDate": b.booking_date.strftime("%Y-%m-%d"),
+                "thumbnail": b.thumbnail,
+            }
+
+            if b.type in ["Flight", "Train", "Bus"]:
+                booking.update({
+                    "origin": b.origin,
+                    "destination": b.destination,
+                    "departureDate": b.departure_date.strftime("%Y-%m-%d") if b.departure_date else "",
+                    "departureTime": b.departure_time,
+                    "arrivalTime": b.arrival_time,
+                })
+                if b.type == "Flight":
+                    booking["airline"] = b.airline
+                    booking["flightNumber"] = b.flight_number
+                elif b.type == "Train":
+                    booking["operator"] = b.airline  # reuse airline as operator
+                    booking["trainNumber"] = b.train_number
+                elif b.type == "Bus":
+                    booking["operator"] = b.airline  # reuse airline as operator
+                    booking["busNumber"] = b.bus_number
+
+            elif b.type == "Hotel":
+                booking.update({
+                    "location": b.location,
+                    "checkIn": b.check_in.strftime("%Y-%m-%d") if b.check_in else "",
+                    "checkOut": b.check_out.strftime("%Y-%m-%d") if b.check_out else "",
+                    "hotel": b.hotel,
+                    "roomType": b.room_type,
+                })
+
+            data.append(booking)
+
+        return Response(data)
+# views.py
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Booking
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def mark_booking_as_paid(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id, user=request.user)
+        booking.is_paid = True
+        booking.save()
+        return Response({'message': 'Booking marked as paid'}, status=status.HTTP_200_OK)
+    except Booking.DoesNotExist:
+        return Response({'error': 'Booking not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import Booking
 
+class BookingListView(APIView):
+    permission_classes = [IsAuthenticated]  # Ensures the user is authenticated
+
+    def get(self, request):
+        # Filter bookings by the logged-in user
+        bookings = Booking.objects.filter(user=request.user)  # Filter by the authenticated user
+        
+        # Manually constructing the response data as a list of dictionaries
+        booking_data = [
+            {
+                'id': booking.id,
+                'type': booking.type,
+                'origin': booking.origin,
+                'destination': booking.destination,
+                'departure_date': booking.departure_date,
+                'departure_time': booking.departure_time,
+                'arrival_time': booking.arrival_time,
+                'status': booking.status,
+                'price': str(booking.price),  # Convert price to string to ensure JSON compatibility
+                'airline': booking.airline,
+                'flight_number': booking.flight_number,
+                'train_number': booking.train_number,
+                'bus_number': booking.bus_number,
+                'hotel': booking.hotel,
+                'room_type': booking.room_type,
+                'booking_date': booking.booking_date,
+                'thumbnail': booking.thumbnail,
+            }
+            for booking in bookings
+        ]
+        return Response(booking_data)  # Return the manually constructed JSON data

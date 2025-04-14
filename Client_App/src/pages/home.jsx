@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Menu, MapPin, ChevronRight, Package, Clock, User, Search, Bus, X } from 'lucide-react';
-
+import {fetchProfile, fetchRoute } from './services/api';
+import {RouteMap} from './google_maps';
 const BookingAppHome = () => {
   const [showTripMenu, setShowTripMenu] = useState(false);
-  const [userName, setUserName] = useState("Michael Chen");
-  
+  const [userName, setUserName] = useState("");
+  const [routes, setRoutes] = useState([]);
+
   const toggleTripMenu = () => {
     setShowTripMenu(!showTripMenu);
   };
@@ -12,7 +14,33 @@ const BookingAppHome = () => {
   const closeTripMenu = () => {
     setShowTripMenu(false);
   };
+  useEffect(() => {
+    const getUserProfile = async () => {
+      try {
+        const response = await fetchProfile(); 
+        setUserName(response); 
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    };
 
+    getUserProfile();
+  }, []);
+
+
+
+  useEffect(() => {
+    const getUserRoutes = async () => {
+      try {
+        const response = await fetchRoute(); 
+        setRoutes(response); 
+      } catch (error) {
+        console.error("Failed to fetch user Routes:", error);
+      }
+    };
+
+    getUserRoutes();
+  }, []);
   return (
     <div className="flex flex-col h-screen bg-slate-50">
       {/* Header with Avatar and Hamburger */}
@@ -22,7 +50,7 @@ const BookingAppHome = () => {
             <button className="p-2 rounded-full hover:bg-slate-100">
               <Menu size={24} />
             </button>
-            <h1 className="text-xl font-bold text-blue-600">RideWave</h1>
+            <h1 className="text-xl font-bold text-blue-600">Garissa Coach</h1>
           </div>
           <div className="flex items-center space-x-2">
             <span className="text-sm font-medium">{userName}</span>
@@ -34,16 +62,8 @@ const BookingAppHome = () => {
       </div>
 
       {/* Google Maps Background */}
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 bg-slate-200">
-          <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-            <img src="/api/placeholder/800/600" alt="Google Maps" className="w-full h-full object-cover" />
-          </div>
-          <div className="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow-lg">
-            <MapPin size={24} className="text-blue-600" />
-          </div>
-        </div>
-      </div>
+      <RouteMap />
+
 
       {/* Main Action Cards */}
       <div className="absolute bottom-24 left-0 right-0 px-4">
@@ -131,13 +151,8 @@ const BookingAppHome = () => {
             {/* Available Buses */}
             <div className="space-y-3">
               <h3 className="text-sm font-medium text-slate-500 mb-2">Available Routes</h3>
-              
-              {[
-                { id: 1, name: 'Downtown Express', time: '10:30 AM', seats: '12', price: '$5.50' },
-                { id: 2, name: 'Airport Shuttle', time: '11:15 AM', seats: '8', price: '$12.75' },
-                { id: 3, name: 'Central Station', time: '12:00 PM', seats: '5', price: '$4.25' },
-              ].map(bus => (
-                <div key={bus.id} className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+              {routes.map(bus => (
+               <div key={bus.id} className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
                   <div className="flex justify-between items-center">
                     <div>
                       <h4 className="font-semibold text-slate-800">{bus.name}</h4>
