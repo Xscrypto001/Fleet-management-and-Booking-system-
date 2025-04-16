@@ -119,8 +119,8 @@ class Booking(models.Model):
         ('Hotel', 'Hotel'),
     ]
     
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    type = models.CharField(max_length=20, choices=BOOKING_TYPES)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    type = models.CharField(max_length=20, choices=BOOKING_TYPES, null=True)
     origin = models.CharField(max_length=100, blank=True, null=True)
     destination = models.CharField(max_length=100, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
@@ -129,16 +129,16 @@ class Booking(models.Model):
     arrival_time = models.CharField(max_length=20, blank=True, null=True)
     check_in = models.DateField(blank=True, null=True)
     check_out = models.DateField(blank=True, null=True)
-    status = models.CharField(max_length=20)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     airline = models.CharField(max_length=100, blank=True, null=True)
     flight_number = models.CharField(max_length=50, blank=True, null=True)
     train_number = models.CharField(max_length=50, blank=True, null=True)
     bus_number = models.CharField(max_length=50, blank=True, null=True)
     hotel = models.CharField(max_length=100, blank=True, null=True)
     room_type = models.CharField(max_length=100, blank=True, null=True)
-    booking_date = models.DateField()
-    thumbnail = models.URLField(default="/api/placeholder/80/80")
+    booking_date = models.DateField(null=True)
+    thumbnail = models.URLField(default="/api/placeholder/80/80", null=True)
     
     def __str__(self):
         return f"{self.type} booking - {self.id}"
