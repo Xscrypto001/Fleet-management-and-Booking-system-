@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmailDomain | Create Custom Professional Emails</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    :root {
+      --cosmic-black: #0F1118;
+      --cosmic-gray: #2A2D3A;
+      --cosmic-light-gray: #404252;
+      --cosmic-orange: #FF6B2B;
+      --cosmic-orange-light: #FF8651;
+      --cosmic-purple: #6E56CF;
+      --cosmic-blue: #4C6EF5;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.04em;
+      background-color: #fff;
+      color: var(--cosmic-gray);
+    }
+    
+    .section-border {
+      border: 1px solid rgba(42, 45, 58, 0.1);
+      border-radius: 16px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(90deg, var(--cosmic-orange), var(--cosmic-orange-light));
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 107, 43, 0.15);
+    }
+    
+    .cosmic-gradient {
+      background: linear-gradient(135deg, var(--cosmic-purple), var(--cosmic-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .provider-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .provider-icon:hover {
+      transform: translateY(-5px);
+      filter: drop-shadow(0 5px 15px rgba(42, 45, 58, 0.2));
+    }
+    
+    .faq-header {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-header:hover {
+      color: var(--cosmic-orange);
+    }
+    
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    
+    .faq-open .faq-content {
+      max-height: 500px;
+    }
+    
+    .cosmic-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(110, 86, 207, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 15px rgba(110, 86, 207, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(110, 86, 207, 0);
+      }
+    }
+    
+    .star-rating svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--cosmic-orange);
+    }
+
+    .step-connector {
+      height: 40px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--cosmic-purple), var(--cosmic-blue));
+      margin: 0 auto;
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Email Domain Section -->
+  <section class="py-24 px-6 md:px-12 lg:px-24" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <div class="section-border p-8 md:p-12">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-medium mb-6">Your Brand, <span class="cosmic-gradient font-semibold">Your Email Domain</span></h2>
+            <p class="text-lg mb-6 opacity-90">Transform your professional presence with custom email domains that reflect your brand identity.</p>
+            
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-start">
+                <svg class="w-6 h-6 mr-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Professional <strong>@yourbrand.com</strong> email addresses</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-6 h-6 mr-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Unlimited custom email accounts for your team</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-6 h-6 mr-3 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Simple one-click DNS setup and verification</span>
+              </li>
+            </ul>
+            
+            <div class="flex flex-wrap gap-4">
+              <button class="btn-primary px-8 py-4 text-white font-medium">Get Started Now</button>
+              <button class="bg-transparent border-2 border-gray-200 px-8 py-4 rounded-lg font-medium hover:border-gray-300 transition-all">See Pricing</button>
+            </div>
+          </div>
+          
+          <div class="relative" data-aos="zoom-in" data-aos-delay="200">
+            <div class="absolute -top-6 -left-6 w-32 h-32 bg-purple-100 rounded-full opacity-70 filter blur-xl"></div>
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-orange-100 rounded-full opacity-70 filter blur-xl"></div>
+            
+            <div class="section-border bg-white p-6 relative z-10">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold mr-4">A</div>
+                <div>
+                  <p class="text-sm text-gray-500">Your Professional Email</p>
+                  <p class="font-medium">alex@yourbrand.com</p>
+                </div>
+              </div>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <div class="flex justify-between mb-3">
+                  <span class="text-sm font-medium">Subject: New Partnership Opportunity</span>
+                  <span class="text-sm text-gray-500">10:30 AM</span>
+                </div>
+                <p class="text-sm">Dear Client, I'm excited to discuss our potential collaboration...</p>
+              </div>
+              
+              <div class="flex justify-between items-center mb-4">
+                <span class="text-sm font-medium">Add custom domain</span>
+                <div class="relative">
+                  <div class="cosmic-pulse absolute inset-0 rounded-full"></div>
+                  <button class="btn-primary px-4 py-2 text-sm text-white font-medium relative z-10">Configure Now</button>
+                </div>
+              </div>
+              
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-500">Remaining: 8 domains</span>
+                <span class="text-gray-500">Upgrade for more →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Integration Section -->
+  <section class="py-24 px-6 md:px-12 lg:px-24 bg-gray-50" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-medium mb-6">Connect with Your <span class="cosmic-gradient font-semibold">Favorite Services</span></h2>
+        <p class="text-lg max-w-3xl mx-auto opacity-90">Seamlessly integrate with your existing email providers or start fresh with our premium email hosting services.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- Google Integration -->
+        <div class="section-border bg-white p-8 text-center hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+          <div class="provider-icon w-20 h-20 mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-full h-full">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              <path fill="none" d="M0 0h48v48H0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Google Workspace</h3>
+          <p class="text-gray-600 mb-6">Connect your custom domain with Google's powerful email services.</p>
+          <button class="border border-gray-300 rounded-lg px-6 py-3 font-medium hover:bg-gray-50 transition-all">Connect</button>
+        </div>
+        
+        <!-- Microsoft Integration -->
+        <div class="section-border bg-white p-8 text-center hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+          <div class="provider-icon w-20 h-20 mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 23" class="w-full h-full">
+              <path fill="#f1511b" d="M1 1h9.5v9.5H1z"/>
+              <path fill="#80cc28" d="M12.5 1H22v9.5h-9.5z"/>
+              <path fill="#00adef" d="M1 12.5h9.5V22H1z"/>
+              <path fill="#fbbc09" d="M12.5 12.5H22V22h-9.5z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Microsoft 365</h3>
+          <p class="text-gray-600 mb-6">Integrate with Outlook and Microsoft's suite of productivity tools.</p>
+          <button class="border border-gray-300 rounded-lg px-6 py-3 font-medium hover:bg-gray-50 transition-all">Connect</button>
+        </div>
+        
+        <!-- Apple Integration -->
+        <div class="section-border bg-white p-8 text-center hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+          <div class="provider-icon w-20 h-20 mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-full h-full">
+              <path fill="currentColor" d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Apple iCloud</h3>
+          <p class="text-gray-600 mb-6">Use your custom domain with Apple's secure email platform.</p>
+          <button class="border border-gray-300 rounded-lg px-6 py-3 font-medium hover:bg-gray-50 transition-all">Connect</button>
+        </div>
+        
+        <!-- Our Email Hosting -->
+        <div class="section-border bg-white p-8 text-center hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
+          <div class="provider-icon w-20 h-20 mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-full h-full">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Our Premium Hosting</h3>
+          <p class="text-gray-600 mb-6">Get started with our powerful, secure email hosting solution.</p>
+          <button class="btn-primary px-6 py-3 text-white font-medium">Get Started</button>
+        </div>
+      </div>
+      
+      <div class="mt-16 text-center">
+        <p class="mb-6 text-lg">Ready to elevate your brand with professional email addresses?</p>
+        <button class="btn-primary px-8 py-4 text-white font-medium">Start Your 14-Day Free Trial</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- How It Works Section -->
+  <section class="py-24 px-6 md:px-12 lg:px-24" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-medium mb-6">How It <span class="cosmic-gradient font-semibold">Works</span></h2>
+        <p class="text-lg max-w-3xl mx-auto opacity-90">Setting up your custom email domain is simple and takes less than 5 minutes.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold cosmic-gradient">1</span>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Register Your Domain</h3>
+          <p class="text-gray-600">Connect your existing domain or register a new one through our platform.</p>
+          <div class="step-connector mt-8 md:block hidden"></div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold cosmic-gradient">2</span>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Configure DNS Settings</h3>
+          <p class="text-gray-600">Our wizard guides you through the simple DNS configuration process.</p>
+          <div class="step-connector mt-8 md:block hidden"></div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-6">
+            <span class="text-2xl font-bold cosmic-gradient">3</span>
+          </div>
+          <h3 class="text-xl font-medium mb-4">Create Email Accounts</h3>
+          <p class="text-gray-600">Set up professional email addresses for everyone on your team.</p>
+        </div>
+      </div>
+      
+      <div class="mt-16 text-center">
+        <button class="btn-primary px-8 py-4 text-white font-medium">Get Started Now</button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reviews Section -->
+  <section class="py-24 px-6 md:px-12 lg:px-24 bg-gray-50" data-aos="fade-up">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-medium mb-6">Trusted by <span class="cosmic-gradient font-semibold">Thousands</span></h2>
+        <p class="text-lg max-w-3xl mx-auto opacity-90">See what our customers are saying about our custom email domain service.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Review 1 -->
+        <div class="section-border bg-white p-8 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center mb-4 star-rating">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-700 mb-6">"Setting up our custom email domain was incredibly easy. The step-by-step guide made what would have been a technical nightmare into a 5-minute task. Our team looks so much more professional now!"</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+              <span class="text-lg font-medium">JD</span>
+            </div>
+            <div>
+              <h4 class="font-medium">Jessica Davis</h4>
+              <p class="text-sm text-gray-500">Founder, Design Studio</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Review 2 -->
+        <div class="section-border bg-white p-8 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center mb-4 star-rating">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-700 mb-6">"The integration with Google Workspace was seamless. I was worried about switching over, but it took literally minutes and saved us thousands compared to other enterprise email solutions. Customer support is stellar too!"</p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+              <span class="text-lg font-medium">MJ</span>
+            </div>
+            <div>
+              <h4 class="font-medium">Michael Johnson</h4>
+              <p class="text-sm text-gray-500">CTO, Tech Startup</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Review 3 -->
+        <div class="section-border bg-white p-8 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center mb-4 star-rating">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+          <p class="text-gray-700 mb-6">"Having our own branded email addresses has dramatically increased our credibility with clients. We've seen a 27% increase in response rates and better deliverability. Worth every penny!"</p>
+          

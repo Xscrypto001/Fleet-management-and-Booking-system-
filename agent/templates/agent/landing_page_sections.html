@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Landing Page Sections</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      letter-spacing: -0.04em;
+      background-color: white;
+    }
+    
+    .cosmic-gradient {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e7eb 100%);
+    }
+    
+    .cosmic-btn {
+      background: linear-gradient(135deg, #FF8A00 0%, #FF5630 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .cosmic-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 86, 48, 0.15);
+    }
+    
+    .connector-card {
+      transition: all 0.4s ease;
+      border: 1px solid #f0f0f0;
+    }
+    
+    .connector-card:hover {
+      transform: translateY(-5px);
+      border-color: #FF8A00;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-out;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+    }
+    
+    .animated-icon {
+      transition: all 0.3s ease;
+    }
+    
+    .connector-card:hover .animated-icon {
+      transform: scale(1.15);
+    }
+    
+    .star-rating {
+      color: #FF8A00;
+    }
+    
+    .integration-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 3s linear forwards;
+    }
+    
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    .float-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 138, 0, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(255, 138, 0, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 138, 0, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Connector Section with Cloud Services -->
+<section class="py-20 px-4 relative overflow-hidden">
+  <!-- Background SVG Elements -->
+  <div class="absolute inset-0 z-0 opacity-5">
+    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <path class="integration-path" d="M10,30 Q50,10 90,30 T170,30" stroke="#FF8A00" stroke-width="0.5" fill="none" />
+      <path class="integration-path" d="M10,40 Q50,20 90,40 T170,40" stroke="#FF5630" stroke-width="0.5" fill="none" />
+      <path class="integration-path" d="M10,50 Q50,30 90,50 T170,50" stroke="#FF8A00" stroke-width="0.5" fill="none" />
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-600 text-xs font-medium tracking-wider uppercase mb-4">Seamless Integration</span>
+      <h2 class="text-4xl md:text-5xl font-medium mb-4 text-gray-900">Connect Your Universe</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Integrate with the tools you already use without friction. Experience the magic of unified workflows in seconds.</p>
+    </div>
+
+    <!-- Integration Section -->
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <!-- Google Card -->
+      <div class="connector-card bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md">
+        <div class="h-20 flex items-center justify-center mb-6">
+          <svg class="animated-icon w-16 h-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 15H7v-2h10v2zm-4-4H7v-2h6v2zm4-4H7V7h10v2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium mb-3 text-gray-900">Google Workspace</h3>
+        <p class="text-gray-600 mb-6">Integrate with Gmail, Drive, Calendar, and more for seamless document handling and communication.</p>
+        <a href="#" class="inline-block py-2 px-4 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50 transition-colors font-medium">Connect Google</a>
+      </div>
+      
+      <!-- Microsoft Card -->
+      <div class="connector-card bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md">
+        <div class="h-20 flex items-center justify-center mb-6">
+          <svg class="animated-icon w-16 h-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="8" height="8" />
+            <rect x="13" y="3" width="8" height="8" />
+            <rect x="3" y="13" width="8" height="8" />
+            <rect x="13" y="13" width="8" height="8" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium mb-3 text-gray-900">Microsoft 365</h3>
+        <p class="text-gray-600 mb-6">Connect with Outlook, OneDrive, Teams, and the entire Office suite for complete workflow integration.</p>
+        <a href="#" class="inline-block py-2 px-4 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50 transition-colors font-medium">Connect Microsoft</a>
+      </div>
+      
+      <!-- Apple Card -->
+      <div class="connector-card bg-white rounded-xl p-8 text-center shadow-sm hover:shadow-md">
+        <div class="h-20 flex items-center justify-center mb-6">
+          <svg class="animated-icon w-16 h-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-medium mb-3 text-gray-900">Apple Services</h3>
+        <p class="text-gray-600 mb-6">Integrate with iCloud, Mail, Calendar, and Notes for a native experience across all your Apple devices.</p>
+        <a href="#" class="inline-block py-2 px-4 border border-orange-500 text-orange-500 rounded-lg hover:bg-orange-50 transition-colors font-medium">Connect Apple</a>
+      </div>
+    </div>
+
+    <!-- Email Integration Form -->
+    <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 md:p-12 relative overflow-hidden border border-gray-100">
+      <div class="absolute right-0 bottom-0 opacity-10">
+        <svg width="300" height="300" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#FF8A00" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90.2,-16.3,89.4,-0.5C88.6,15.3,84.1,30.5,76.4,43.9C68.7,57.3,57.8,68.8,44.4,75.7C31.1,82.7,15.5,85.1,0.4,84.4C-14.7,83.8,-29.4,80.1,-43.5,73.3C-57.5,66.6,-70.9,56.7,-78.7,43.5C-86.5,30.2,-88.6,15.1,-88,0.3C-87.4,-14.5,-84.1,-28.9,-77.1,-41.9C-70.2,-54.9,-59.5,-66.3,-46.4,-74C-33.2,-81.8,-16.6,-86,-0.3,-85.4C16,-84.9,30.5,-83.7,44.7,-76.4Z" transform="translate(100 100)" />
+        </svg>
+      </div>
+
+      <div class="md:flex items-center relative z-10">
+        <div class="md:w-1/2 mb-8 md:mb-0 md:pr-12">
+          <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-600 text-xs font-medium tracking-wider uppercase mb-4">Connect Your Email</span>
+          <h3 class="text-3xl font-medium mb-4 text-gray-900">Supercharge Your Existing Email</h3>
+          <p class="text-lg text-gray-600 mb-6">Already using email? Perfect. Connect your existing account and gain productivity superpowers immediately.</p>
+          
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-gray-700">Automated email filtering & categorization</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-gray-700">Advanced scheduling & follow-up tools</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 mr-3 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-gray-700">Seamless document & contract management</span>
+            </li>
+          </ul>
+          
+          <div class="flex items-center space-x-1 mb-6">
+            <span class="star-rating">★★★★★</span>
+            <span class="text-sm text-gray-600 ml-2">Trusted by 10,000+ professionals</span>
+          </div>
+        </div>
+        
+        <div class="md:w-1/2">
+          <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
+            <h4 class="text-xl font-medium mb-6 text-gray-900">Connect Your Account</h4>
+            
+            <div class="space-y-4 mb-6">
+              <button class="flex items-center justify-center w-full py-3 px-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21.8055 10.0415H21V10H12V14H17.6515C16.827 16.3285 14.6115 18 12 18C8.6865 18 6 15.3135 6 12C6 8.6865 8.6865 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C6.4775 2 2 6.4775 2 12C2 17.5225 6.4775 22 12 22C17.5225 22 22 17.5225 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z" fill="#FFC107"/>
+                  <path d="M3.15295 7.3455L6.43845 9.755C7.32745 7.554 9.48045 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C8.15895 2 4.82795 4.1685 3.15295 7.3455Z" fill="#FF3D00"/>
+                  <path d="M12 22C14.583 22 16.93 21.0115 18.7045 19.404L15.6095 16.785C14.5718 17.5742 13.3038 18.001 12 18C9.39903 18 7.19053 16.3415 6.35853 14.027L3.09753 16.5395C4.75253 19.778 8.11353 22 12 22Z" fill="#4CAF50"/>
+                  <path d="M21.8055 10.0415H21V10H12V14H17.6515C17.2571 15.1082 16.5467 16.0766 15.608 16.7855L15.6095 16.784L18.7045 19.4035C18.4855 19.6025 22 17 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z" fill="#1976D2"/>
+                </svg>
+                <span class="text-gray-700 font-medium">Continue with Google</span>
+              </button>
+              
+              <button class="flex items-center justify-center w-full py-3 px-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.9941 3.95728C13.7812 3.95728 15.011 4.84696 15.8094 5.60913C16.5246 4.95492 17.491 4.36516 18.7209 4.36516C18.8629 4.73077 18.9819 5.14855 19.0779 5.60913C19.2414 6.42259 19.3599 7.45002 19.3599 8.63426C19.3599 13.9606 16.2486 17.2018 12.0357 17.2018C7.59502 17.2018 4.50146 13.813 4.50146 8.93198C4.50146 6.6644 5.41447 4.73077 6.81968 3.41096C8.28333 2.01367 10.2233 1.35947 11.9941 1.35947V3.95728Z" fill="white" stroke="black" stroke-width="0.891167"/>
+                  <path d="M16.7461 10.6364C16.7248 9.95466 17.0146 9.26848 17.4832 8.7442C17.1294 8.23525 16.5449 7.90028 15.9391 7.86684C15.2895 7.79783 14.6612 8.23525 14.3287 8.23525C13.9749 8.23525 13.4423 7.88997 12.8792 7.90028C12.116 7.92091 11.4132 8.35833 11.0381 9.05483C10.2749 10.4588 10.8381 12.5262 11.58 13.7489C11.9338 14.3549 12.3516 15.0205 12.9144 14.9999C13.4423 14.9793 13.6388 14.6546 14.2871 14.6546C14.9141 14.6546 15.0894 14.9999 15.6602 14.9896C16.2517 14.9793 16.6055 14.3857 16.938 13.7694C17.2064 13.3216 17.4107 12.8326 17.5327 12.3229C16.9733 12.0914 16.5981 11.5927 16.7461 10.6364Z" fill="black"/>
+                  <path d="M15.7143 7.14339C16.0255 6.76015 16.2007 6.26152 16.1368 5.76288C15.6729 5.79632 15.2336 6.00871 14.9011 6.35399C14.5686 6.6787 14.372 7.16702 14.4146 7.67597C14.9011 7.72998 15.3828 7.54072 15.7143 7.14339Z" fill="black"/>
+                </svg>
+                <span class="text-gray-700 font-medium">Continue with Apple</span>
+              </button>
+              
+              <button class="flex items-center justify-center w-full py-3 px-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                <svg class="w-5 h-5 mr-3" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.24902 5.25H17.249C18.0774 5.25 18.749 5.92157 18.749 6.75V16.25C18.749 17.0784 18.0774 17.75 17.249 17.75H5.24902C4.42059 17.75 3.74902 17.0784 3.74902 16.25V6.75C3.74902 5.92157 4.42059 5.25 5.24902 5.25Z" stroke="#0078D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M18.749 6.75L11.249 12.25L3.74902 6.75" stroke="#0078D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="text-gray-700 font-medium">Continue with Microsoft</span>
+              </button>
+            </div>
+            
+            <div class="relative flex items-center">
+              <div class="flex-grow border-t border-gray-200"></div>
+              <span class="flex-shrink mx-3 text-gray-400 text-sm">Or use email</span>
+              <div class="flex-grow border-t border-gray-200"></div>
+            </div>
+            
+            <div class="mt-6">
+              <form>
+                <div class="mb-4">
+                  <input type="email" placeholder="Your email address" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                </div>
+                <button class="w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 font-medium">
+                  Get Started Now
+                </button>
+                <p class="text-xs text-gray-500 mt-4 text-center">By continuing, you agree to our Terms of Service and Privacy Policy</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ and Reviews Section -->
+<section class="py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-600 text-xs font-medium tracking-wider uppercase mb-4">Questions & Reviews</span>
+      <h2 class="text-4xl md:text-5xl font-medium mb-4 text-gray-900">Everything You Need to Know</h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">Get answers to common questions and see what others are saying about our platform.</p>
+    </div>
+
+    <div class="md:flex md:space-x-12">
+      <!-- FAQ Column -->
+      <div class="md:w-1/2 mb-12 md:mb-0">
+        <h3 class="text-2xl font-medium mb-8 text-gray-900">Frequently Asked Questions</h3>
+        
+        <div class="space-y-6">
+          <!-- FAQ Item 1 -->
+          <div class="faq-item p-6 border border-gray-100 rounded-xl">
+            <div class="flex justify-between items-center cursor-pointer">
+              <h4 class="text-lg font-medium text-gray-900">How do I integrate with my existing email?</h4>
+              <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="faq-answer pt-4 text-gray-600">
+              <p>Integration is seamless with our one-click authorization process. Simply choose your email provider (Google, Microsoft, Apple, or others), grant permission, and we'll handle the rest. Your data stays secure, and you can revoke access anytime.</p>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 2 -->
+          <div class="faq-item p-6 border border-gray-100 rounded-xl">
+            <div class="flex justify-between items-center cursor-pointer">
+              <h4 class="text-lg font-medium text-gray-900">Can I use a custom domain with your platform?</h4>
+              <svg class="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div class="faq-answer pt-4 text-gray-600">
+              <p>Absolutely! With our Professional and Enterprise plans, you can use your own custom domain. This allows you to maintain brand consistency while leveraging our powerful form and email management tools. Setup takes just minutes with our step-by-step guide.</p>
+            </div>
+          </div>
+          
+          <!-- FAQ Item 3 -->
+          <div class="faq-item p-6 border border-gray-100 rounded-xl">
+            <div class=
