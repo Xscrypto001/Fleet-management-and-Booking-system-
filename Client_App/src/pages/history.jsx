@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Calendar, Clock, MapPin, Menu, ChevronRight, Search, Filter, MoreVertical, Menu } from 'lucide-react';
-import {fetchhistory } from './services/api';
+import { Calendar, Clock, MapPin, Menu, ChevronRight, Search, Filter, MoreVertical } from 'lucide-react';
+import {fetchhistory } from '../services/api';
 
 // Status badge component
 const StatusBadge = ({ status }) => {

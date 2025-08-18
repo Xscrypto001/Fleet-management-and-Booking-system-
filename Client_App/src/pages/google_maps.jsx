@@ -8,7 +8,7 @@ import { MapPin } from "lucide-react";
 
 const center = { lat: -1.2921, lng: 36.8219 }; // Nairobi
 
-const RouteMap = () => {
+export const RouteMap = () => {
   const mapRef = useRef(null);
   const directionsRendererRef = useRef(null);
 
@@ -61,4 +61,4 @@ const RouteMap = () => {
   );
 };
 
-export default RouteMap;
+//export default RouteMap;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Car, Star, Clock, MapPin, Shield, CreditCard, CheckCircle, User, Phone, Calendar, Menu } from 'lucide-react';
-import { fetchBooking } from './services/api';
-import PaymentSection from "./PaymentSection";
+import { fetchBooking } from '../services/api';
+import PaymentSection from "./payment";
 
 //npm install react-paystack jspdf html2canvas
 

@@ -10,7 +10,7 @@ import BookingHistory from './pages/history';
 
 import ProfilePage from './pages/profile';
 import BookingAppHome  from './pages/home';
-import BookingDetailsPage  from './pages/Booking';
+import BookingDetailsPage  from './pages/booking';
 
 
 
@@ -100,7 +100,7 @@ const App = () => {
           </div>
 
         </main>
-        </div>
+        
 
     </Router>
   );

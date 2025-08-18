@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Menu, MapPin, ChevronRight, Package, Clock, User, Search, Bus, X } from 'lucide-react';
-import {fetchProfile, fetchRoute } from './services/api';
+import {fetchProfile, fetchRoute } from '../services/api';
 import {RouteMap} from './google_maps';
 const BookingAppHome = () => {
   const [showTripMenu, setShowTripMenu] = useState(false);
@@ -55,7 +55,7 @@ const BookingAppHome = () => {
           <div className="flex items-center space-x-2">
             <span className="text-sm font-medium">{userName}</span>
             <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
-              {userName.split(' ').map(name => name[0]).join('')}
+              {userName?.split(' ').map(name => name[0]).join('')}
             </div>
           </div>
         </div>
@@ -151,7 +151,7 @@ const BookingAppHome = () => {
             {/* Available Buses */}
             <div className="space-y-3">
               <h3 className="text-sm font-medium text-slate-500 mb-2">Available Routes</h3>
-              {routes.map(bus => (
+              {routes?.map(bus => (
                <div key={bus.id} className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
                   <div className="flex justify-between items-center">
                     <div>

@@ -54,7 +54,7 @@ class Driver(models.Model):
     address = models.TextField(null=True)
     emergency_contact = models.CharField(max_length=20, null=True)
     vehicle_preference = models.CharField(max_length=255, null=True)
-    photo = models.ImageField(upload_to='drivers/', null=True, blank=True)
+   # photo = models.ImageField(upload_to='drivers/', null=True, blank=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2, default=0, null=True)
 
     def __str__(self):

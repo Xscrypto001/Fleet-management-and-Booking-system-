@@ -91,7 +91,7 @@ export const fetchProfile = async () => {
 
 
 
-export const fetchRoutes= async () => {
+export const fetchRoute= async () => {
     const token = localStorage.getItem('access_token');
     
     if (!token) {
