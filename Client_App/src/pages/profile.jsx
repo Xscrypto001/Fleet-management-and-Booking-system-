@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { User, Calendar, Phone, Camera, Edit2, Menu} from 'lucide-react';
-
+import { Clock,User, Calendar, Phone, Camera, Edit2, Menu} from 'lucide-react';
+import BottomNav from "./nav";
 export default function ProfilePage() {
   const [userName, setUserName] = useState("Michael Chen");
 
   const [user, setUser] = useState({
-    name: "Alex Johnson",
-    phone: "+1 (555) 123-4567",
+    name: "AMran Abdi",
+    phone: "+254 759 735537",
     joinedDate: "April 5, 2023",
     avatar: null
   });
@@ -85,9 +85,9 @@ export default function ProfilePage() {
         Edit Profile
       </button>
 
+<BottomNav/>
 
-
-      <div className="absolute bottom-0 left-0 right-0 bg-white shadow-lg rounded-t-2xl">
+      {/*<div className="absolute bottom-0 left-0 right-0 bg-white shadow-lg rounded-t-2xl">
         <div className="flex justify-around p-4">
           <button className="flex flex-col items-center space-y-1 text-blue-600">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -105,7 +105,7 @@ export default function ProfilePage() {
             <span className="text-xs font-medium">Profile</span>
           </button>
         </div>
-      </div>
+      </div>*/}
 
     </div>
   );

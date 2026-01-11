@@ -12,7 +12,7 @@ import ProfilePage from './pages/profile';
 import BookingAppHome  from './pages/home';
 import BookingDetailsPage  from './pages/booking';
 
-
+import BusDetails from "./pages/details";          
 
 
 
@@ -91,7 +91,7 @@ const App = () => {
         
 
  
-
+<Route path="/bus/:id" element={<BusDetails />} />
     
               </>
             )}

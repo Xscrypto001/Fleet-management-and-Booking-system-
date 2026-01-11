@@ -2,10 +2,47 @@ import React, { useState,useEffect } from 'react';
 import { Menu, MapPin, ChevronRight, Package, Clock, User, Search, Bus, X } from 'lucide-react';
 import {fetchProfile, fetchRoute } from '../services/api';
 import {RouteMap} from './google_maps';
+import { useNavigate } from "react-router-dom";
+import BottomNav from "./nav";
+import { mockRoutes as routes} from "./mockRoutes";
+
 const BookingAppHome = () => {
+const navigate = useNavigate();
   const [showTripMenu, setShowTripMenu] = useState(false);
   const [userName, setUserName] = useState("");
-  const [routes, setRoutes] = useState([]);
+  //const [routes, setRoutes] = useState([]);
+//const [routes, setRoutes] = useState(
+/*[
+  {
+    id: 1,
+    name: "Nairobi → Garissa",
+    time: "08:30 AM",
+    seats: 12,
+    price: "KSh 1,200",
+  },
+  {
+    id: 2,
+    name: "Kisumu → Garissa",
+    time: "02:15 PM",
+    seats: 8,
+    price: "KSh 900",
+  },
+  {
+    id: 3,
+    name: "Nairobi → Eldoret",
+    time: "06:45 AM",
+    seats: 5,
+    price: "KSh 1,500",
+  },
+  {
+    id: 4,
+    name: "Mombasa → Garissa",
+    time: "11:00 AM",
+    seats: 20,
+    price: "KSh 700",
+  },
+]
+);*/
 
   const toggleTripMenu = () => {
     setShowTripMenu(!showTripMenu);
@@ -28,7 +65,7 @@ const BookingAppHome = () => {
   }, []);
 
 
-
+{/*
   useEffect(() => {
     const getUserRoutes = async () => {
       try {
@@ -40,7 +77,7 @@ const BookingAppHome = () => {
     };
 
     getUserRoutes();
-  }, []);
+  }, []);*/}
   return (
     <div className="flex flex-col h-screen bg-slate-50">
       {/* Header with Avatar and Hamburger */}
@@ -62,7 +99,9 @@ const BookingAppHome = () => {
       </div>
 
       {/* Google Maps Background */}
-      <RouteMap />
+     
+
+ <RouteMap />
 
 
       {/* Main Action Cards */}
@@ -86,7 +125,7 @@ const BookingAppHome = () => {
           </button>
 
           {/* Send Parcel Button */}
-          <button className="w-full bg-purple-50 hover:bg-purple-100 p-4 rounded-xl flex items-center justify-between border border-purple-200 transition-all duration-200">
+        {/*  <button className="w-full bg-purple-50 hover:bg-purple-100 p-4 rounded-xl flex items-center justify-between border border-purple-200 transition-all duration-200">
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center mr-3">
                 <Package size={20} className="text-white" />
@@ -97,15 +136,16 @@ const BookingAppHome = () => {
               </div>
             </div>
             <ChevronRight size={20} className="text-purple-600" />
-          </button>
+          </button>*/}
         </div>
       </div>
 
       {/* Bottom Navigation */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white shadow-lg rounded-t-2xl">
+      {/*<div className="absolute bottom-0 left-0 right-0 bg-white shadow-lg rounded-t-2xl">
         <div className="flex justify-around p-4">
           <button className="flex flex-col items-center space-y-1 text-blue-600">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+ strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
               <polyline points="9 22 9 12 15 12 15 22"></polyline>
             </svg>
@@ -120,8 +160,8 @@ const BookingAppHome = () => {
             <span className="text-xs font-medium">Profile</span>
           </button>
         </div>
-      </div>
-
+      </div>*/}
+<BottomNav/>
       {/* Trip Menu Modal */}
       {showTripMenu && (
         <div className="absolute inset-0 bg-slate-900 bg-opacity-50 z-20 flex flex-col">
@@ -149,7 +189,7 @@ const BookingAppHome = () => {
             </div>
 
             {/* Available Buses */}
-            <div className="space-y-3">
+            {/*<div className="space-y-3">
               <h3 className="text-sm font-medium text-slate-500 mb-2">Available Routes</h3>
               {routes?.map(bus => (
                <div key={bus.id} className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow">
@@ -170,7 +210,46 @@ const BookingAppHome = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div>*/}
+
+
+
+
+<div className="space-y-3">
+  <h3 className="text-sm font-medium text-slate-500 mb-2">Available Routes</h3>
+  {routes?.map((bus) => (
+    <div
+      key={bus.id}
+      className="bg-white border border-slate-200 rounded-xl p-4 hover:shadow-md transition-shadow"
+    >
+      <div className="flex justify-between items-center">
+        <div>
+          <h4 className="font-semibold text-slate-800">{bus.name}</h4>
+          <div className="flex items-center mt-1">
+            <Clock size={14} className="text-slate-400 mr-1" />
+            <span className="text-sm text-slate-500">{bus.time}</span>
+            <span className="mx-2 text-slate-300">|</span>
+            <span className="text-sm text-green-600">
+              {bus.seats} seats available
+            </span>
+          </div>
+        </div>
+        <div className="text-right">
+          <span className="text-lg font-bold text-blue-600">{bus.price}</span>
+          <button
+            onClick={() => navigate(`/bus/${bus.id}`)}
+            className="block mt-1 text-xs text-blue-500 font-medium"
+          >
+            Select →
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+
+
           </div>
         </div>
       )}

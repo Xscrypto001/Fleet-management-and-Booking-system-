@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -56,7 +58,7 @@ export const RouteMap = () => {
   if (!userLocation) return <div className="text-center p-8">Loading Map...</div>;
 
   return (
-    <div className="relative w-full max-w-3xl mx-auto h-[400px] rounded-xl overflow-hidden shadow-lg">
+    <div className="flex-1 relative h-[600px] rounded-xl overflow-hidden shadow-lg">
       <MapContainer
         center={userLocation}
         zoom={7}
@@ -73,3 +75,5 @@ export const RouteMap = () => {
     </div>
   );
 };
+
+//export default RouteMap;
