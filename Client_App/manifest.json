@@ -1,12 +1,12 @@
 {
-    "name": "OrgPro CRM",
-    "short_name": "OrgPro",
+    "name": "Garissa Coach",
+    "short_name": "Coach",
     "description": "Capture, Convert, Close.",
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
     "display": "standalone",
     "scope": "/",
-    "start_url": "/signin",
+    "start_url": "/",
     "icons": [
       {
         "src": "/icons/logo-192.png",
